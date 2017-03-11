@@ -1,0 +1,13 @@
+---
+# defaults file for .
+
+default_symlink_file_globs:
+  - glob: '*.symlink'
+    path: '~/%s'
+
+symlink_file_globs: "{{ default_symlink_file_globs }}"
+
+copy_files: []
+
+link_files: []
+

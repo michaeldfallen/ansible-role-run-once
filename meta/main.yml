@@ -1,0 +1,14 @@
+galaxy_info:
+  author: Michael Allen
+  description: Automatically symlink dotfiles to ~/
+
+  license: MIT
+
+  min_ansible_version: 2.2
+
+  platforms:
+    - name: Ubuntu
+      versions:
+        - yakkety
+
+dependencies: []

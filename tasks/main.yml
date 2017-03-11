@@ -1,0 +1,7 @@
+---
+
+- include: run_script.yml
+  with_items:
+    - "{{ scripts }}"
+  loop_control:
+    loop_var: script

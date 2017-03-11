@@ -1,0 +1,25 @@
+---
+
+- name: "Check runfile"
+  stat:
+    path: "~/.ansible/run-{{ script | to_json | hash('md5') }}"
+  register: runfile
+
+- name: "Execute tests"
+  shell: |
+    {{ script.when_false }}
+  when: ('when_false' in script)
+  register: test
+  ignore_errors: yes
+
+- name: "Execute script '{{ ('cmd' in script) | ternary(script.cmd, script)}}'"
+  shell: |
+    {{ ('cmd' in script) | ternary(script.cmd, script) }}
+  when: not runfile.stat.exists or (test|failed and ('when_false' in script))
+  register: script_execution
+
+- name: "Record execution"
+  file:
+    path: "~/.ansible/run-{{ script | to_json | hash('md5') }}"
+    state: touch
+  when: script_execution.changed
